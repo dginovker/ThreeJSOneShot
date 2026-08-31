@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>ThreeJS Game</title>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0e14; }
+      canvas { display: block; }
+      #hud {
+        position: fixed; inset: 12px 12px auto 12px; pointer-events: none;
+        font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: #cfe3ff;
+        text-shadow: 0 1px 2px rgba(0,0,0,.8); white-space: pre-wrap;
+      }
+      #fatal {
+        position: fixed; inset: 0; display: none; z-index: 10; overflow: auto;
+        padding: 24px; box-sizing: border-box; background: #1a0f12; color: #ffb4b4;
+        font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud"></div>
+    <pre id="fatal"></pre>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
