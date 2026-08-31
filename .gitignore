@@ -2,3 +2,7 @@ node_modules/
 dist/
 .DS_Store
 *.log
+
+# Blender/FBX/OBJ sources for the art packs: ~87MB the web build never loads.
+# The glTF the game actually loads live in public/models/ and are committed.
+art-source/

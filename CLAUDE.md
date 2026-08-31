@@ -16,7 +16,29 @@ Static Three.js game, built by Vite, deployed to GitHub Pages by
 - Everything runs client-side. There is no server, no build-time secrets, and
   no persistence beyond `localStorage`.
 
-## Assets
+## Models
+
+109 CC0 models from the Ultimate Platformer Pack (Quaternius) are in
+`public/models/`, grouped as `character`, `cubes`, `enemies`, `level`,
+`nature`, `pickups`, `platforms-2d`, `platforms-3d`,
+`platforms-single-height`. Load them by name:
+
+```js
+import { loadModel, loadModels, MODEL_NAMES } from './models.js';
+
+const bee = await loadModel('Bee');            // -> THREE.Group
+const { Coin, Cube_Bricks } = await loadModels(['Coin', 'Cube_Bricks']);
+```
+
+`loadModel` throws on an unknown name and suggests near matches, so a typo
+fails at load with a readable message instead of silently rendering nothing.
+`MODEL_NAMES` is the full list. `src/models.generated.js` is written by
+`scripts/gen-model-manifest.js` — regenerate it after adding assets, don't
+hand-edit it.
+
+Reuse a loaded model with `.clone()` rather than loading it again.
+
+## Other assets
 
 The build uses `base: './'` so it works at any Pages URL. That makes
 root-absolute paths (`/models/ship.glb`) wrong in production.
@@ -25,6 +47,9 @@ root-absolute paths (`/models/ship.glb`) wrong in production.
   Vite hashes it and rewrites the URL.
 - Unprocessed: put it in `public/` and build the URL with
   `import.meta.env.BASE_URL + 'ship.glb'`.
+
+Note that Vite does not rewrite paths *inside* a `.gltf`, so a glTF with an
+external `.bin` or texture must go in `public/` with its siblings intact.
 
 ## Before calling it done
 
