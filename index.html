@@ -2,41 +2,64 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title>Skyward — Sky Island Platformer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harness Comparison — Three.js Game Runs</title>
     <style>
-      html, body { margin: 0; height: 100%; overflow: hidden; background: #7fb2e5; }
-      canvas { display: block; }
+      :root { color-scheme: dark; }
       body {
-        font-family: ui-rounded, 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
-        -webkit-font-smoothing: antialiased;
+        margin: 0; padding: 48px 24px; background: #0b0e14; color: #cfe3ff;
+        font: 15px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
       }
-      /* Centre-bottom banner for level beats; the corner is the hearts' space. */
-      #hud {
-        position: fixed; inset: auto 0 7vh 0; pointer-events: none; text-align: center;
-        font-size: clamp(15px, 2.1vw, 26px); font-weight: 800; letter-spacing: .01em;
-        color: #fff8ea; text-shadow: 0 2px 0 rgba(60,30,10,.55), 0 6px 22px rgba(0,0,0,.45);
+      main { max-width: 720px; margin: 0 auto; }
+      h1 { font-size: 20px; margin: 0 0 8px; color: #eaf2ff; }
+      p.lede { margin: 0 0 32px; color: #7f93b5; }
+      ol { list-style: none; margin: 0; padding: 0; }
+      li {
+        border: 1px solid #1e2738; border-radius: 8px; padding: 16px 18px;
+        margin-bottom: 12px; background: #10141d;
       }
-      #counters {
-        position: fixed; top: 22px; right: 26px; pointer-events: none;
-        display: flex; gap: 6px; align-items: center;
-        font-size: clamp(18px, 2.4vw, 30px); font-weight: 800;
-        color: #fff8ea; text-shadow: 0 2px 0 rgba(60,30,10,.5), 0 4px 16px rgba(0,0,0,.4);
+      li.pending { opacity: 0.55; }
+      .row { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+      .num { color: #4f8cff; }
+      .name { color: #eaf2ff; font-size: 16px; }
+      .tag {
+        margin-left: auto; font-size: 12px; padding: 2px 8px; border-radius: 999px;
+        border: 1px solid #2b3a55; color: #7f93b5;
       }
-      #counters .pip { margin-left: 14px; margin-right: 4px; }
-      #counters .coin { color: #ffc23d; }
-      #counters .gem  { color: #ff8fd8; }
-      #counters .key  { color: #ffe27a; }
-      #fatal {
-        position: fixed; inset: 0; display: none; z-index: 10; overflow: auto;
-        padding: 24px; box-sizing: border-box; background: #1a0f12; color: #ffb4b4;
-        font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap;
-      }
+      .tag.live { border-color: #2f6b3f; color: #74d68c; }
+      .harness { margin: 6px 0 0; color: #7f93b5; }
+      a.play { display: inline-block; margin-top: 10px; color: #4f8cff; }
+      footer { margin-top: 32px; color: #5d6f8e; font-size: 13px; }
+      footer a { color: #7f93b5; }
     </style>
   </head>
   <body>
-    <div id="hud"></div>
-    <pre id="fatal"></pre>
-    <script type="module" src="/src/main.js"></script>
+    <main>
+      <h1>Three.js game runs</h1>
+      <p class="lede">Same prompt, same model, same asset pack — different agent harness.</p>
+      <ol>
+        <li>
+          <div class="row"><span class="num">01</span><span class="name">Skyward</span><span class="tag live">playable</span></div>
+          <p class="harness">Claude Code, no additional harness configuration.</p>
+          <a class="play" href="./01-baseline/">Play →</a>
+        </li>
+        <li class="pending">
+          <div class="row"><span class="num">02</span><span class="name">Ziva prompt in CLAUDE.md</span><span class="tag">not yet run</span></div>
+          <p class="harness">Claude Code with the Ziva system prompt pasted into CLAUDE.md.</p>
+        </li>
+        <li class="pending">
+          <div class="row"><span class="num">03</span><span class="name">Ziva as MCP server</span><span class="tag">not yet run</span></div>
+          <p class="harness">Claude Code with Ziva attached as an MCP server.</p>
+        </li>
+        <li class="pending">
+          <div class="row"><span class="num">04</span><span class="name">Fable-generated skill</span><span class="tag">not yet run</span></div>
+          <p class="harness">Claude Code with a skill Fable wrote by analyzing Ziva's Plan → Implement → Validate → Playtest loop.</p>
+        </li>
+      </ol>
+      <footer>
+        Counterpart built with Ziva:
+        <a href="https://play.ziva.sh/listening-layout/">play.ziva.sh/listening-layout</a>
+      </footer>
+    </main>
   </body>
 </html>

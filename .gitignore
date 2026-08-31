@@ -4,5 +4,5 @@ dist/
 *.log
 
 # Blender/FBX/OBJ sources for the art packs: ~87MB the web build never loads.
-# The glTF the game actually loads live in public/models/ and are committed.
+# The glTF every run loads live in shared/models/ and are committed.
 art-source/

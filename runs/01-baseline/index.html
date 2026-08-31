@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Skyward — Sky Island Platformer</title>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #7fb2e5; }
+      canvas { display: block; }
+      body {
+        font-family: ui-rounded, 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      /* Centre-bottom banner for level beats; the corner is the hearts' space. */
+      #hud {
+        position: fixed; inset: auto 0 7vh 0; pointer-events: none; text-align: center;
+        font-size: clamp(15px, 2.1vw, 26px); font-weight: 800; letter-spacing: .01em;
+        color: #fff8ea; text-shadow: 0 2px 0 rgba(60,30,10,.55), 0 6px 22px rgba(0,0,0,.45);
+      }
+      #counters {
+        position: fixed; top: 22px; right: 26px; pointer-events: none;
+        display: flex; gap: 6px; align-items: center;
+        font-size: clamp(18px, 2.4vw, 30px); font-weight: 800;
+        color: #fff8ea; text-shadow: 0 2px 0 rgba(60,30,10,.5), 0 4px 16px rgba(0,0,0,.4);
+      }
+      #counters .pip { margin-left: 14px; margin-right: 4px; }
+      #counters .coin { color: #ffc23d; }
+      #counters .gem  { color: #ff8fd8; }
+      #counters .key  { color: #ffe27a; }
+      #fatal {
+        position: fixed; inset: 0; display: none; z-index: 10; overflow: auto;
+        padding: 24px; box-sizing: border-box; background: #1a0f12; color: #ffb4b4;
+        font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="hud"></div>
+    <pre id="fatal"></pre>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

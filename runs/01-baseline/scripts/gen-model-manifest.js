@@ -3,7 +3,7 @@
 import { readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-const ROOT = 'public/models';
+const ROOT = '../../shared/models';
 const paths = {};
 
 for (const category of readdirSync(ROOT, { withFileTypes: true })) {

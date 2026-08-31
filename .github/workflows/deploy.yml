@@ -23,8 +23,25 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
-      - run: npm run build
+          cache-dependency-path: runs/*/package-lock.json
+
+      - name: Build every run into its own subdirectory
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          cp index.html dist/
+          for dir in runs/*/; do
+            name=$(basename "$dir")
+            echo "::group::$name"
+            (cd "$dir" && npm ci && npm run build)
+            # A run that builds but emits nothing would publish a blank page
+            # that looks deployed. Fail instead.
+            test -f "$dir/dist/index.html" || { echo "$name produced no index.html"; exit 1; }
+            cp -r "$dir/dist" "dist/$name"
+            echo "::endgroup::"
+          done
+          echo "published:"; ls -1 dist
+
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
