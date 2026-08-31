@@ -19,12 +19,22 @@ const loader = new GLTFLoader();
 
 /** Resolves to a fresh THREE.Group. Rejects on a bad name or a failed fetch. */
 export async function loadModel(name) {
-  const gltf = await loader.loadAsync(modelUrl(name));
-  return gltf.scene;
+  return (await loadGLTF(name)).scene;
+}
+
+/** Same, but keeps the parsed gltf so callers can reach `.animations`. */
+export async function loadGLTF(name) {
+  return loader.loadAsync(modelUrl(name));
 }
 
 /** loadModels(['Bee', 'Cube_Bricks']) -> { Bee: Group, Cube_Bricks: Group } */
 export async function loadModels(names) {
   const loaded = await Promise.all(names.map(loadModel));
+  return Object.fromEntries(names.map((n, i) => [n, loaded[i]]));
+}
+
+/** loadGLTFs(['Bee']) -> { Bee: gltf } — for models whose clips you need. */
+export async function loadGLTFs(names) {
+  const loaded = await Promise.all(names.map(loadGLTF));
   return Object.fromEntries(names.map((n, i) => [n, loaded[i]]));
 }
