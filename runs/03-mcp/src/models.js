@@ -17,10 +17,14 @@ export function modelUrl(name) {
 
 const loader = new GLTFLoader();
 
+/** Full gltf, for models whose `.animations` you need. */
+export async function loadGltf(name) {
+  return loader.loadAsync(modelUrl(name));
+}
+
 /** Resolves to a fresh THREE.Group. Rejects on a bad name or a failed fetch. */
 export async function loadModel(name) {
-  const gltf = await loader.loadAsync(modelUrl(name));
-  return gltf.scene;
+  return (await loadGltf(name)).scene;
 }
 
 /** loadModels(['Bee', 'Cube_Bricks']) -> { Bee: Group, Cube_Bricks: Group } */
