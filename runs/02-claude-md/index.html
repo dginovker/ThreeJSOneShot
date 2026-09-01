@@ -3,15 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title>ThreeJS Game</title>
+    <title>Skyward — Sky Island Run</title>
     <style>
-      html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0e14; }
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #7fb4dd; }
       canvas { display: block; }
-      #hud {
-        position: fixed; inset: 12px 12px auto 12px; pointer-events: none;
-        font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: #cfe3ff;
-        text-shadow: 0 1px 2px rgba(0,0,0,.8); white-space: pre-wrap;
+
+      /* Pulls the eye to the middle of the frame and stops the pale horizon
+         from running flat all the way into the corners. */
+      #vignette {
+        position: fixed; inset: 0; z-index: 1; pointer-events: none;
+        background:
+          radial-gradient(ellipse 82% 74% at 50% 46%, transparent 42%, rgba(38, 58, 84, .30) 100%),
+          linear-gradient(to bottom, rgba(30, 52, 80, .16), transparent 22%);
       }
+
+      #hud {
+        position: fixed; inset: 14px 16px auto 16px; pointer-events: none; z-index: 2;
+        display: flex; align-items: center; gap: 22px;
+        font: 600 15px/1 ui-rounded, "Avenir Next", "Segoe UI", system-ui, sans-serif;
+        color: #fff8ec; text-shadow: 0 2px 6px rgba(24, 40, 66, .55);
+        /* The heart models are drawn in the top-left corner of the canvas. */
+        padding-left: 178px;
+      }
+      #hud .stat { display: inline-flex; align-items: baseline; gap: 6px; }
+      #hud .stat b { font-size: 24px; font-weight: 800; letter-spacing: .02em; }
+      #hud .stat i {
+        font-style: normal; font-size: 11px; letter-spacing: .16em;
+        text-transform: uppercase; opacity: .72;
+      }
+      #hud .key { animation: pop .4s ease-out; font-size: 20px; }
+      #hud .hint { margin-left: auto; font-size: 12px; letter-spacing: .1em; opacity: .6; }
+      #hud .loading { letter-spacing: .18em; text-transform: uppercase; font-size: 12px; }
+      @keyframes pop { from { transform: scale(1.6); } to { transform: scale(1); } }
+
+      #banner {
+        position: fixed; inset: 0; z-index: 3; display: none; pointer-events: none;
+        align-items: center; justify-content: center; flex-direction: column; text-align: center;
+        font: 700 16px/1.5 ui-rounded, "Avenir Next", "Segoe UI", system-ui, sans-serif;
+        color: #fff8ec; text-shadow: 0 4px 18px rgba(20, 34, 60, .6);
+        background: radial-gradient(ellipse at center, rgba(255, 220, 160, .18), rgba(20, 40, 70, .42));
+        animation: fade .8s ease-out;
+      }
+      #banner.show { display: flex; }
+      #banner h1 { margin: 0; font-size: clamp(38px, 8vw, 88px); letter-spacing: -.02em; }
+      #banner p { margin: 14px 0 0; font-weight: 600; letter-spacing: .08em; opacity: .88; }
+      @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
       #fatal {
         position: fixed; inset: 0; display: none; z-index: 10; overflow: auto;
         padding: 24px; box-sizing: border-box; background: #1a0f12; color: #ffb4b4;
@@ -20,7 +57,9 @@
     </style>
   </head>
   <body>
+    <div id="vignette"></div>
     <div id="hud"></div>
+    <div id="banner"></div>
     <pre id="fatal"></pre>
     <script type="module" src="/src/main.js"></script>
   </body>

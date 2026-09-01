@@ -17,10 +17,21 @@ export function modelUrl(name) {
 
 const loader = new GLTFLoader();
 
+/** Resolves to the parsed glTF (scene + animations). Rejects on a bad name. */
+export async function loadGLTF(name) {
+  return loader.loadAsync(modelUrl(name));
+}
+
 /** Resolves to a fresh THREE.Group. Rejects on a bad name or a failed fetch. */
 export async function loadModel(name) {
-  const gltf = await loader.loadAsync(modelUrl(name));
+  const gltf = await loadGLTF(name);
   return gltf.scene;
+}
+
+/** loadGLTFs(['Bee']) -> { Bee: gltf } */
+export async function loadGLTFs(names) {
+  const loaded = await Promise.all(names.map(loadGLTF));
+  return Object.fromEntries(names.map((n, i) => [n, loaded[i]]));
 }
 
 /** loadModels(['Bee', 'Cube_Bricks']) -> { Bee: Group, Cube_Bricks: Group } */

@@ -7,7 +7,7 @@ the operator.
 | # | Harness | Wall clock | Prompt | Notes |
 |---|---|---|---|---|
 | 01 | Claude Code, no extra config | ~50 min *(transcript)* | identical | interrupted 54s in, re-prompted 33 min later; 50 min is re-prompt → `push` |
-| 02 | Ziva system prompt in CLAUDE.md, verbatim | — | — | queued. Earlier attempt used an edited prompt and was discarded — see below |
+| 02 | Ziva system prompt in CLAUDE.md, verbatim | 71 min *(reported)*, 75.3 raw / 63.5 active *(transcript)* | identical | true one-shot, 1 turn. 6 screenshots. Ignored the prompt's no-bash rule: 89 Bash + 9 Write calls |
 | 03 | Claude Code, no extra config — see caveat | 54 min *(transcript)* | identical | true one-shot: 1 user turn, no pasted images |
 | 04 | Fable-generated skill | — | — | not yet run |
 
@@ -18,7 +18,7 @@ comparison against the transcripts, not by eye).
 
 Whichever run gets the chrome-devtools MCP can screenshot its own game; runs
 without it are blind. Run 01 and run 03 took zero screenshots (run 03 tried and
-hit a locked profile). The discarded run 02 attempt took 8. Worth holding
+hit a locked profile). Run 02 took 6. Worth holding
 constant, or at least recording per run, since it is plausibly a larger effect
 than the prompt.
 
@@ -64,7 +64,7 @@ a separate variant.
 
 Whichever run gets the chrome-devtools MCP can screenshot its own game; runs
 without it are blind. Run 01 and run 03 took zero screenshots (run 03 tried and
-hit a locked profile). The discarded run 02 attempt took 8. Worth holding
+hit a locked profile). Run 02 took 6. Worth holding
 constant, or at least recording per run, since it is plausibly a larger effect
 than the prompt.
 
