@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title>ThreeJS Game</title>
+    <title>Skybound</title>
     <style>
       html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0e14; }
       canvas { display: block; }
@@ -11,6 +11,34 @@
         position: fixed; inset: 12px 12px auto 12px; pointer-events: none;
         font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: #cfe3ff;
         text-shadow: 0 1px 2px rgba(0,0,0,.8); white-space: pre-wrap;
+      }
+      #hud {
+        font: 600 15px/1.5 ui-rounded, "Trebuchet MS", system-ui, sans-serif;
+        color: #fff6e2; letter-spacing: .02em;
+        text-shadow: 0 2px 6px rgba(20,30,60,.75);
+        left: 16px; top: 74px;
+      }
+      #hud b { color: #ffd35e; }
+      #banner {
+        position: fixed; inset: 0; display: grid; place-content: center; gap: 10px;
+        text-align: center; pointer-events: none; opacity: 0; transition: opacity .45s ease;
+        font: 700 15px/1.6 ui-rounded, "Trebuchet MS", system-ui, sans-serif; color: #fff6e2;
+        text-shadow: 0 3px 14px rgba(10,20,50,.8);
+      }
+      #banner.on { opacity: 1; }
+      #banner .big {
+        font-size: 58px; letter-spacing: .04em; line-height: 1;
+        background: linear-gradient(#fff5d6, #ffb44b);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+        filter: drop-shadow(0 4px 18px rgba(255,150,40,.45));
+      }
+      #vignette {
+        position: fixed; inset: 0; pointer-events: none;
+        background: radial-gradient(ellipse at 50% 45%, rgba(0,0,0,0) 45%, rgba(20,14,40,.42) 100%);
+      }
+      #flash {
+        position: fixed; inset: 0; pointer-events: none; opacity: 0;
+        background: #ff5a5a; transition: opacity .18s ease;
       }
       #fatal {
         position: fixed; inset: 0; display: none; z-index: 10; overflow: auto;
@@ -21,6 +49,9 @@
   </head>
   <body>
     <div id="hud"></div>
+    <div id="vignette"></div>
+    <div id="flash"></div>
+    <div id="banner"></div>
     <pre id="fatal"></pre>
     <script type="module" src="/src/main.js"></script>
   </body>

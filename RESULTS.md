@@ -7,12 +7,28 @@ the operator.
 | # | Harness | Wall clock | Prompt | Notes |
 |---|---|---|---|---|
 | 01 | Claude Code, no extra config | ~50 min *(transcript)* | identical | interrupted 54s in, re-prompted 33 min later; 50 min is re-prompt → `push` |
-| 02 | Ziva workflow rules in CLAUDE.md | — | — | queued; earlier run at this slot was a baseline (Skybound, 39 min) and was overwritten |
+| 02 | Ziva workflow rules in CLAUDE.md | 1h30 *(reported)*, 88.9 min active *(transcript)* | identical | **saw its own game**: 8 screenshots, 10 navigations, 9 script evals. One `.` nudge after a 7.4h idle gap |
 | 03 | Claude Code, no extra config — see caveat | 54 min *(transcript)* | identical | true one-shot: 1 user turn, no pasted images |
 | 04 | Fable-generated skill | — | — | not yet run |
 
 Both prompts so far are byte-identical to `/tmp/skyward-prompt.txt` (verified by
 comparison against the transcripts, not by eye).
+
+## Run 02 (rerun) — the first run where the harness actually differed
+
+`CLAUDE.md` carried the adapted Ziva rules for the whole run (106 lines,
+unchanged from handoff). Prompt byte-identical to run 01.
+
+The headline difference is that this run **had vision**: it drove the browser,
+took 8 screenshots of its own game, evaluated scripts against the running page
+and iterated. Runs 01 and 03 never got a single screenshot — run 03 tried and
+was blocked by a locked browser profile. So run 02 vs 03 is not a clean
+prompt-only comparison; vision availability differed too, and that is probably
+the larger effect.
+
+Active time excludes idle: the raw session span is 542 min, of which 453 min is
+a single overnight gap. The 19-minute tail after the operator typed `.` is
+included in the 88.9 min.
 
 ## Caveat on run 03
 

@@ -17,9 +17,14 @@ export function modelUrl(name) {
 
 const loader = new GLTFLoader();
 
+/** Full glTF payload — use when you need `.animations` alongside the scene. */
+export async function loadGltf(name) {
+  return loader.loadAsync(modelUrl(name));
+}
+
 /** Resolves to a fresh THREE.Group. Rejects on a bad name or a failed fetch. */
 export async function loadModel(name) {
-  const gltf = await loader.loadAsync(modelUrl(name));
+  const gltf = await loadGltf(name);
   return gltf.scene;
 }
 
