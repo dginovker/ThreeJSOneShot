@@ -7,7 +7,7 @@ the operator.
 | # | Harness | Wall clock | Prompt | Notes |
 |---|---|---|---|---|
 | 01 | Claude Code, no extra config | ~50 min *(transcript)* | identical | interrupted 54s in, re-prompted 33 min later; 50 min is re-prompt → `push` |
-| 02 | Claude Code, no extra config — see caveat | 39 min *(reported)*, 42.3 min *(transcript)* | identical | one screenshot pasted by the operator 27 min in |
+| 02 | Ziva workflow rules in CLAUDE.md | — | — | queued; earlier run at this slot was a baseline (Skybound, 39 min) and was overwritten |
 | 03 | Claude Code, no extra config — see caveat | 54 min *(transcript)* | identical | true one-shot: 1 user turn, no pasted images |
 | 04 | Fable-generated skill | — | — | not yet run |
 
@@ -31,7 +31,31 @@ gave up and proceeded without ever taking a screenshot. So it was blind by
 tooling failure rather than by design — worth knowing before citing it as
 evidence that Claude Code works blind.
 
-## Caveat on run 02
+## How run 02's CLAUDE.md was built
+
+Ziva's own system prompt is Godot-specific
+(`ziva/packages/shared/system-prompt/__fixtures__/godot-pro.txt`). Pasted
+verbatim into a Three.js project it would instruct the agent to use tools that
+do not exist here (`get_scene_tree`, `run_scene`, `search_docs`,
+`create_file`/`edit_file`) and would forbid it from using bash to write project
+files — which is how Claude Code builds anything. That would measure a
+mismatched prompt, not a harness.
+
+So the engine-agnostic workflow rules were kept and the engine-specific
+sections dropped. The diff against the scaffold CLAUDE.md is a pure addition:
+43 lines added, 0 removed.
+
+**Kept** (translated where a tool was named): investigate before acting; infer
+intent rather than asking clarifying questions; batch independent calls; form a
+plan then execute; diagnose root cause and never retry an identical call; don't
+give up after one failure; don't re-execute a denied call; verify after changing
+— re-read files, build, run the game and look at it; prefer `.gltf`.
+
+**Dropped**: GDScript typing conventions, Godot scene/tileset/sprite-atlas
+tooling, the Ziva-tool file-write rule, multiplayer and analytics provisioning,
+and the Godot runtime footer.
+
+## Caveat on the overwritten run 02 (Skybound)
 
 Run 02 was intended as "Ziva system prompt in CLAUDE.md", but the executed run
 does not match that description:

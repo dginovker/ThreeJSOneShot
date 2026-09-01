@@ -3,71 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title>Skybound</title>
+    <title>ThreeJS Game</title>
     <style>
-      :root {
-        --ink: #17324a;
-        --paper: rgba(255, 252, 244, 0.88);
-      }
-      html, body { margin: 0; height: 100%; overflow: hidden; background: #7fc0e6; }
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0b0e14; }
       canvas { display: block; }
-      body {
-        font: 600 15px/1.45 ui-rounded, "Nunito", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-        color: var(--ink);
-        -webkit-font-smoothing: antialiased;
+      #hud {
+        position: fixed; inset: 12px 12px auto 12px; pointer-events: none;
+        font: 14px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: #cfe3ff;
+        text-shadow: 0 1px 2px rgba(0,0,0,.8); white-space: pre-wrap;
       }
-      .hud { position: fixed; pointer-events: none; z-index: 2; }
-
-      #coins {
-        top: 22px; right: 26px;
-        font-size: 30px; letter-spacing: 0.02em;
-        color: #fff8e2;
-        text-shadow: 0 2px 0 #b8762a, 0 4px 14px rgba(20, 40, 70, 0.45);
-        transform-origin: 100% 50%;
-        transition: transform 90ms ease-out;
-      }
-      #coins::before {
-        content: "◆ ";
-        color: #ffd45e;
-      }
-
-      #hint {
-        left: 50%; bottom: 26px; transform: translateX(-50%);
-        padding: 9px 18px; border-radius: 999px;
-        background: var(--paper);
-        box-shadow: 0 6px 18px rgba(18, 40, 66, 0.22);
-        transition: opacity 700ms ease;
-      }
-      #hint.gone { opacity: 0; }
-      #hint b { color: #c2571f; }
-
-      #msg {
-        left: 50%; top: 78px; transform: translate(-50%, -10px);
-        padding: 10px 22px; border-radius: 999px;
-        background: var(--paper);
-        box-shadow: 0 8px 22px rgba(18, 40, 66, 0.25);
-        opacity: 0;
-        transition: opacity 220ms ease, transform 220ms ease;
-      }
-      #msg.on { opacity: 1; transform: translate(-50%, 0); }
-
-      #banner {
-        inset: 0; display: grid; place-content: center; text-align: center;
-        background: radial-gradient(55% 55% at 50% 45%, rgba(255, 248, 232, 0.82), rgba(255, 238, 210, 0.34));
-        opacity: 0; transition: opacity 600ms ease;
-      }
-      #banner.on { opacity: 1; }
-      #banner h1 { margin: 0 0 6px; font-size: 54px; letter-spacing: -0.02em; color: #b8541c; }
-      #banner p { margin: 2px 0; font-size: 20px; }
-      #banner .sub { margin-top: 14px; font-size: 14px; opacity: 0.6; }
-
-      #loading {
-        position: fixed; inset: 0; z-index: 5; display: grid; place-content: center;
-        background: #7fc0e6; color: #fff; font-size: 18px; letter-spacing: 0.14em;
-        transition: opacity 500ms ease;
-      }
-      #loading.gone { opacity: 0; pointer-events: none; }
-
       #fatal {
         position: fixed; inset: 0; display: none; z-index: 10; overflow: auto;
         padding: 24px; box-sizing: border-box; background: #1a0f12; color: #ffb4b4;
@@ -76,11 +20,7 @@
     </style>
   </head>
   <body>
-    <div id="coins" class="hud">0 / 0</div>
-    <div id="msg" class="hud"></div>
-    <div id="hint" class="hud"><b>A / D</b> or arrows to run &nbsp;·&nbsp; <b>Space</b> to jump</div>
-    <div id="banner" class="hud"></div>
-    <div id="loading">L O A D I N G</div>
+    <div id="hud"></div>
     <pre id="fatal"></pre>
     <script type="module" src="/src/main.js"></script>
   </body>

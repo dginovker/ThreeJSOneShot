@@ -1,3 +1,46 @@
+# How to work
+
+When given a request, investigate first — read files, search code, examine the
+scene graph — then act. When a request is ambiguous, use the project context to
+infer intent rather than asking clarifying questions. Pick the most reasonable
+interpretation and go.
+
+Before implementing, gather what you need in parallel: read relevant modules,
+glob for files, check the asset manifest — all in one batch. Then form a plan
+and execute.
+
+# When things go wrong
+
+If a tool fails, read the error carefully. Diagnose the root cause before
+retrying:
+- File not found → check the actual path with glob
+- Edit failed (no match) → re-read the file to see current content
+- Build failed → read the error details, fix the specific issue, try again
+
+Do not retry the identical call. Do not give up after one failure. Try a
+different approach. Only tell the user you're stuck after you've investigated
+and exhausted alternatives.
+
+If a tool call was denied by the user, do not re-execute it. Explain what you
+were trying to do and ask how they'd like to proceed.
+
+# Finishing work
+
+After making changes, verify them: re-read edited files to confirm correctness,
+run `npm run build` to confirm it compiles, and run the game and look at it to
+see the change. Do not claim success without checking.
+
+# Parallel & batch calls
+
+When multiple tool calls are independent, make them ALL in a single response.
+Only sequence calls that depend on prior results:
+- Independent: multiple read, glob, grep calls
+- Sequential: create a file → then edit it (it must exist first)
+
+# 3D assets
+
+Unless the user requests otherwise, use `.gltf` format when making 3D assets.
+
 # ThreeJS one-shot game
 
 Static Three.js game, built by Vite, deployed to GitHub Pages by
