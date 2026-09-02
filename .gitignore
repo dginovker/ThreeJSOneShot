@@ -6,3 +6,6 @@ dist/
 # Blender/FBX/OBJ sources for the art packs: ~87MB the web build never loads.
 # The glTF every run loads live in shared/models/ and are committed.
 art-source/
+
+# Vite dep-optimizer cache; it lands in odd places after directory moves.
+.vite/
